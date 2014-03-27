@@ -162,6 +162,8 @@
       L.control.touchHover().addTo(map);
     }
 
+    var current_candidat = location.hash ? location.hash.substr(1) : 'belaubre';
+
     // console.log(results);
     var keys = Object.keys(results);
     for (var key in results) {
@@ -171,7 +173,7 @@
         var candidat = bureau_results[index];
         for (var name in candidat) {
 
-          if (name === 'belaubre') {
+          if (name === current_candidat) {
             results[key] = [candidat];
           }
         }
@@ -180,18 +182,14 @@
 
     // get color depending on the candidate
 
-    var colors = {'belaubre': '#1B2638' /*'#B6A3C9' */, 'chouki': '#C40000', 'cohen': '#e20040', 'laroze': '#1B2638', 'maurice': '#7AB41D', 'moudenc': '#4D6BA2', 'plancade': '#EEA2B0', 'sellin': '#FF0000', 'torremocha': '#9D0000', 'deveyrac': '#8297BE'};
+    var color = '#1B2638';
     var fullNames = {'belaubre': 'Elisabeth Belaubre', 'chouki': 'Ahmed Chouki', 'cohen': 'Pierre Cohen', 'laroze': 'Serge Laroze', 'maurice': 'Antoine Maurice', 'moudenc': 'Jean-Luc Moudenc', 'plancade': 'Jean-Pierre Plancade', 'sellin': 'Jean-Christophe Sellin', 'torremocha': 'Sandra Torremocha', 'deveyrac': 'Christine de Veyrac'};
     var partis = {'belaubre': 'RC', 'chouki': 'EXG', 'cohen': 'PS - PC - PRG', 'laroze': 'FN', 'maurice': 'EELV', 'moudenc': 'UMP - MoDem - UDI', 'plancade': 'DVG', 'sellin': 'PG', 'torremocha': 'LO', 'deveyrac': 'DVD'};
     var maxScores = {'belaubre': '5.03', 'chouki': '21.40', 'cohen': '46.94', 'laroze': '18.03', 'maurice': '15.11', 'moudenc': '62.34', 'plancade': '4.79', 'sellin': '10.29', 'torremocha': '2.48', 'deveyrac': '5.65'};
     var minScores = {'belaubre': '0.59', 'chouki': '0.20', 'cohen': '17.32', 'laroze': '2.47', 'maurice': '1.61', 'moudenc': '19.50', 'plancade': '0.59', 'sellin': '1.23', 'torremocha': '0', 'deveyrac': '0.48'};
 
     function getColor(candidat, score1, score2) {
-      if (score1 == score2) {
-        return 'white';
-      } else{
-        return colors[candidat];
-      };
+      return color;
     }
 
     function getOpacity(candidat, score) {
@@ -255,8 +253,8 @@
           var value = results[bureau.ASSOCIANT][key];
           resultsList += '<li><canvas id="myCanvas" width="';
           resultsList += value[Object.keys(value)]*2;
-          resultsList += '" height="20" style="border:1px solid ' + colors[Object.keys(value)] + '; background-color:';
-          resultsList += colors[Object.keys(value)];
+          resultsList += '" height="20" style="border:1px solid ' + color + '; background-color:';
+          resultsList += color;
           resultsList += '; opacity: 0.6;"></canvas> ';
           resultsList += fullNames[Object.keys(value)];
           resultsList += '<span class="parti"> (' + partis[Object.keys(value)] + ')</span> : ';
@@ -274,11 +272,11 @@
         resultsList += '<li><canvas width="30" height="20" style="border: 1px solid #1B2638; background-color: #1B2638; opacity: 0.9;"></canvas> 4 à 5 %</li>';
         for(var key in resultsG1) {
           var value = resultsG1[key];
-          if (Object.keys(value) == 'belaubre') {
+          if (Object.keys(value) == current_candidat) {
             resultsList += '<li><canvas id="myCanvas" width="';
             resultsList += value[Object.keys(value)]*2;
-            resultsList += '" height="20" style="border:1px solid ' + colors[Object.keys(value)] + '; background-color:';
-            resultsList += colors[Object.keys(value)];
+            resultsList += '" height="20" style="border:1px solid ' + color + '; background-color:';
+            resultsList += color;
             resultsList += '; opacity: 0.6;"></canvas> ';
             resultsList += fullNames[Object.keys(value)];
             resultsList += '<span class="parti"> (' + partis[Object.keys(value)] + ')</span> : ';
